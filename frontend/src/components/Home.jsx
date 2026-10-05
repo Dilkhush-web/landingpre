@@ -6,9 +6,9 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
 
   const heroImages = [
-    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139197/9-8mb_gjie7g.jpg",
     "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139185/3-8mb_s1bb1v.jpg",
-    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139206/7-8mb_vtcubj.jpg"
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139206/7-8mb_vtcubj.jpg",
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1600/v1791139153/8-8mb_cpvcl5.jpg"
   ];
 
   const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
@@ -65,6 +65,15 @@ export default function Home() {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         .font-luxury { font-family: 'Cormorant Garamond', serif; }
       `}</style>
+
+      {/* ================= FLOATING WHATSAPP BUTTON ================= */}
+      <button
+        onClick={handleWhatsApp}
+        className="fixed bottom-6 right-6 z-40 bg-green-600 text-white p-4 rounded-full shadow-2xl hover:bg-green-700 transition-all transform hover:scale-110 flex items-center justify-center animate-bounce"
+        title="Chat on WhatsApp"
+      >
+        <FaWhatsapp className="text-3xl" />
+      </button>
 
       {/* ================= SECTION 1: HERO SECTION ================= */}
       <section className="relative h-screen w-full overflow-hidden bg-black flex items-end justify-start pb-8 sm:pb-12 px-5 sm:px-10 md:px-20">
