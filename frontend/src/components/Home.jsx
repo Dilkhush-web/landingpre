@@ -25,7 +25,7 @@ export default function Home() {
   };
 
   const handleCalendly = () => {
-    window.open('https://calendly.com', '_blank');
+    window.open('https://calendly.com/infoaugconsultancy/30min?month=2026-09', '_blank');
   };
 
   const portfolioImages = [
