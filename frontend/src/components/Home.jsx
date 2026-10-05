@@ -1,18 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaWhatsapp, FaCalendarAlt, FaStar, FaMapMarkerAlt, FaTimes, FaCamera, FaAward, FaHeart, FaChevronDown } from 'react-icons/fa';
 
 export default function Home() {
-  const videoRef = useRef(null);
   const [activeImage, setActiveImage] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
 
-  // Video 58-second auto restart logic
-  const handleTimeUpdate = () => {
-    if (videoRef.current && videoRef.current.currentTime >= 58) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-    }
-  };
+  const heroImages = [
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139197/9-8mb_gjie7g.jpg",
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139185/3-8mb_s1bb1v.jpg",
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139206/7-8mb_vtcubj.jpg"
+  ];
+
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
 
   const handleWhatsApp = () => {
     window.open('https://wa.me/917999993120?text=Hi,%20I%20would%20like%20to%20book%20a%20photography%20session.', '_blank');
@@ -22,7 +28,6 @@ export default function Home() {
     window.open('https://calendly.com', '_blank');
   };
 
-  // Optimized Cloudinary Image URLs for instant lightning-fast loading
   const portfolioImages = [
     "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1200/v1791139226/4-8mb_dywgm9.jpg",
     "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1200/v1791139156/5-8mb_iur0gn.jpg",
@@ -56,75 +61,64 @@ export default function Home() {
   return (
     <div className="bg-[#FDFBF7] text-[#2C2A29] min-h-screen font-['Plus_Jakarta_Sans',sans-serif] selection:bg-[#EFECE6] selection:text-[#1A1817] relative overflow-x-hidden">
       
-      {/* Import Google Fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
         .font-luxury { font-family: 'Cormorant Garamond', serif; }
       `}</style>
 
-      {/* ================= FLOATING WHATSAPP BUTTON ================= */}
-      <button
-        onClick={handleWhatsApp}
-        className="fixed bottom-6 right-6 z-40 bg-green-600 text-white p-4 rounded-full shadow-2xl hover:bg-green-700 transition-all transform hover:scale-110 flex items-center justify-center animate-bounce"
-        title="Chat on WhatsApp"
-      >
-        <FaWhatsapp className="text-3xl" />
-      </button>
-
-      {/* ================= SECTION 1: HERO SECTION (Fast Video Loading) ================= */}
-      <section className="relative h-screen w-full overflow-hidden bg-black flex items-end justify-start pb-10 sm:pb-12 px-5 sm:px-10 md:px-20">
-        {/* Background Video with Auto-Optimization & Preload */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            onTimeUpdate={handleTimeUpdate}
-            className="w-full h-full object-cover opacity-75 filter brightness-95 contrast-105"
-          >
-            <source src="https://res.cloudinary.com/tkhv6b6p/video/upload/v1791194859/SANIYA_AKASH_PEREFCT.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          {/* Gradient Overlay for Bottom-Left Text Readability */}
+      {/* ================= SECTION 1: HERO SECTION ================= */}
+      <section className="relative h-screen w-full overflow-hidden bg-black flex items-end justify-start pb-8 sm:pb-12 px-5 sm:px-10 md:px-20">
+        
+        <div className="absolute inset-0 z-0 overflow-hidden bg-black flex items-center justify-center">
+          {heroImages.map((imgUrl, index) => (
+            <img
+              key={index}
+              src={imgUrl}
+              alt={`Wedding Hero ${index + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover object-bottom sm:object-center transition-opacity duration-1000 ease-in-out ${
+                index === currentHeroIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/50 to-transparent"></div>
         </div>
 
-        {/* Hero Content */}
         <div className="relative z-10 max-w-xl md:max-w-3xl text-left flex flex-col items-start text-white">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-3 sm:mb-4 text-[#F9F6F0] text-[11px] sm:text-xs tracking-[0.25em] uppercase font-medium shadow-lg">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-2 sm:mb-4 text-[#F9F6F0] text-[10px] sm:text-xs tracking-[0.25em] uppercase font-medium shadow-lg">
             <FaMapMarkerAlt className="text-[#E6D5C3]" /> Ambala &bull; Chandigarh &bull; Mohali
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-luxury font-bold tracking-tight text-[#F9F6F0] mb-2 sm:mb-3 drop-shadow-2xl leading-[1.1]">
+          <h1 className="text-2xl sm:text-5xl lg:text-7xl font-luxury font-bold tracking-tight text-[#F9F6F0] mb-2 sm:mb-3 drop-shadow-2xl leading-[1.1]">
             Perfect Image Photography
           </h1>
 
-          <p className="text-base sm:text-xl md:text-2xl text-white/90 font-light tracking-wide mb-6 sm:mb-8 font-luxury italic drop-shadow-md">
+          <p className="text-sm sm:text-xl md:text-2xl text-white/90 font-light tracking-wide mb-4 sm:mb-8 font-luxury italic drop-shadow-md">
             Capturing <span className="text-[#E6D5C3] font-semibold not-italic">600+ Love Stories</span> with Timeless Elegance
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-3.5 w-full sm:w-auto">
+          <div className="flex flex-row gap-2.5 sm:gap-3.5 w-auto">
             <button
               onClick={handleWhatsApp}
-              className="flex items-center justify-center gap-3 bg-[#F9F6F0] text-[#1A1817] px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-semibold hover:bg-white transition-all transform hover:-translate-y-0.5 shadow-2xl tracking-wide text-xs sm:text-base border border-[#E6D5C3]"
+              className="flex items-center justify-center gap-2 sm:gap-3 bg-[#F9F6F0] text-[#1A1817] p-3 sm:px-8 sm:py-4 rounded-full font-semibold hover:bg-white transition-all transform hover:-translate-y-0.5 shadow-2xl tracking-wide text-xs sm:text-base border border-[#E6D5C3]"
+              title="Connect on WhatsApp"
             >
-              <FaWhatsapp className="text-xl text-green-700" /> Connect on WhatsApp
+              <FaWhatsapp className="text-xl sm:text-xl text-green-700 shrink-0" /> 
+              <span className="hidden sm:inline">Connect on WhatsApp</span>
             </button>
             <button
               onClick={handleCalendly}
-              className="flex items-center justify-center gap-3 bg-black/40 hover:bg-black/60 border-2 border-white/70 text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-semibold transition-all backdrop-blur-md tracking-wide text-xs sm:text-base shadow-xl"
+              className="flex items-center justify-center gap-2 sm:gap-3 bg-black/40 hover:bg-black/60 border-2 border-white/70 text-white p-3 sm:px-8 sm:py-4 rounded-full font-semibold transition-all backdrop-blur-md tracking-wide text-xs sm:text-base shadow-xl"
+              title="Schedule Consultation"
             >
-              <FaCalendarAlt className="text-lg text-[#E6D5C3]" /> Schedule Consultation
+              <FaCalendarAlt className="text-lg sm:text-lg text-[#E6D5C3] shrink-0" /> 
+              <span className="hidden sm:inline">Schedule Consultation</span>
             </button>
           </div>
         </div>
       </section>
 
-      {/* ================= SECTION 2: SELECTED WORK (Optimized Images) ================= */}
+      {/* ================= SECTION 2: SELECTED WORK ================= */}
       <section className="py-16 sm:py-28 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto bg-[#FDFBF7]">
         <div className="text-center mb-10 sm:mb-20">
           <span className="text-[#8C7A6B] uppercase tracking-[0.3em] text-[10px] sm:text-xs font-semibold block mb-2 sm:mb-3">Our Portfolio</span>
@@ -132,10 +126,8 @@ export default function Home() {
           <p className="text-[#665C54] max-w-xl mx-auto text-xs sm:text-sm md:text-base font-light">Click on any frame to experience the moment in full detail.</p>
         </div>
 
-        {/* Asymmetrical Grid on Desktop, Clean 2-Column Grid on Mobile */}
         <div className="grid grid-cols-2 md:grid-cols-12 gap-3 sm:gap-6 md:gap-8 items-center">
           
-          {/* Image 1 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[0])}
             className="col-span-2 md:col-span-7 h-[260px] sm:h-[350px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -148,7 +140,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Image 2 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[1])}
             className="col-span-1 md:col-span-5 h-[220px] sm:h-[300px] md:h-[390px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -161,7 +152,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Image 3 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[2])}
             className="col-span-1 md:col-span-5 h-[220px] sm:h-[300px] md:h-[360px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -174,7 +164,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Image 4 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[3])}
             className="col-span-2 md:col-span-7 h-[260px] sm:h-[350px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -190,7 +179,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Lightbox Modal for Full Image View */}
       {activeImage && (
         <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg flex items-center justify-center p-4">
           <button 
@@ -203,7 +191,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* ================= SECTION 3: ULTRA-PREMIUM CTA & BOOKING ================= */}
+      {/* ================= SECTION 3: CTA & BOOKING ================= */}
       <section className="py-16 sm:py-28 bg-gradient-to-b from-[#F9F5F0] via-[#F4EFEA] to-[#EFE8E1] border-y border-[#E2D9CE] px-4 sm:px-8 relative overflow-hidden">
         <div className="absolute -top-24 -left-24 w-72 sm:w-96 h-72 sm:h-96 bg-[#E6D5C3]/30 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-24 -right-24 w-72 sm:w-96 h-72 sm:h-96 bg-[#E6D5C3]/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -267,7 +255,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECTION 4: ENGLISH FAQ SECTION ================= */}
+      {/* ================= SECTION 4: FAQ SECTION ================= */}
       <section className="py-16 sm:py-28 px-4 sm:px-8 md:px-16 max-w-4xl mx-auto bg-[#FDFBF7]">
         <div className="text-center mb-10 sm:mb-20">
           <span className="text-[#8C7A6B] uppercase tracking-[0.3em] text-[10px] sm:text-xs font-semibold block mb-2 sm:mb-3">Got Questions?</span>
@@ -298,7 +286,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECTION 5: REAL CLIENT REVIEWS (2x2 Mobile Grid Layout) ================= */}
+      {/* ================= SECTION 5: CLIENT REVIEWS ================= */}
       <section className="py-16 sm:py-28 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto bg-[#F9F5F0] border-t border-[#E8E2D8]">
         <div className="text-center mb-10 sm:mb-20">
           <span className="text-[#8C7A6B] uppercase tracking-[0.3em] text-[10px] sm:text-xs font-semibold block mb-2 sm:mb-3">Client Love</span>
@@ -306,10 +294,8 @@ export default function Home() {
           <p className="text-[#665C54] max-w-xl mx-auto text-xs sm:text-sm md:text-base font-light">Read how we helped preserve lifetime memories for our wonderful clients.</p>
         </div>
 
-        {/* 2 Cards per row on Mobile/Tablet (2x2 layout) & 4 Cards on Large Screens */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-stretch">
           
-          {/* Review Card 1 */}
           <div className="bg-[#FDFBF7] p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-[#E8E2D8] flex flex-col justify-between shadow-sm hover:shadow-xl transition-all">
             <div>
               <div className="flex text-amber-600 gap-0.5 sm:gap-1 mb-2 sm:mb-4">
@@ -330,7 +316,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Review Card 2 */}
           <div className="bg-[#FDFBF7] p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-[#E8E2D8] flex flex-col justify-between shadow-sm hover:shadow-xl transition-all">
             <div>
               <div className="flex text-amber-600 gap-0.5 sm:gap-1 mb-2 sm:mb-4">
@@ -351,7 +336,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Review Card 3 */}
           <div className="bg-[#FDFBF7] p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-[#E8E2D8] flex flex-col justify-between shadow-sm hover:shadow-xl transition-all">
             <div>
               <div className="flex text-amber-600 gap-0.5 sm:gap-1 mb-2 sm:mb-4">
@@ -372,7 +356,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Review Card 4 */}
           <div className="bg-[#FDFBF7] p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-[#E8E2D8] flex flex-col justify-between shadow-sm hover:shadow-xl transition-all">
             <div>
               <div className="flex text-amber-600 gap-0.5 sm:gap-1 mb-2 sm:mb-4">
