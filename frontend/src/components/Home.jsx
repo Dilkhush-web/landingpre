@@ -22,11 +22,12 @@ export default function Home() {
     window.open('https://calendly.com', '_blank');
   };
 
+  // Optimized Cloudinary Image URLs for instant lightning-fast loading
   const portfolioImages = [
-    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139226/4-8mb_dywgm9.jpg",
-    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139156/5-8mb_iur0gn.jpg",
-    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139153/8-8mb_cpvcl5.jpg",
-    "https://res.cloudinary.com/doa6d6cyf/image/upload/v1791139185/3-8mb_s1bb1v.jpg"
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1200/v1791139226/4-8mb_dywgm9.jpg",
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1200/v1791139156/5-8mb_iur0gn.jpg",
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1200/v1791139153/8-8mb_cpvcl5.jpg",
+    "https://res.cloudinary.com/doa6d6cyf/image/upload/q_auto,f_auto,w_1200/v1791139185/3-8mb_s1bb1v.jpg"
   ];
 
   const faqs = [
@@ -70,9 +71,9 @@ export default function Home() {
         <FaWhatsapp className="text-3xl" />
       </button>
 
-      {/* ================= SECTION 1: HERO SECTION (Fully Responsive Mobile & Laptop) ================= */}
+      {/* ================= SECTION 1: HERO SECTION (Fast Video Loading) ================= */}
       <section className="relative h-screen w-full overflow-hidden bg-black flex items-end justify-start pb-10 sm:pb-12 px-5 sm:px-10 md:px-20">
-        {/* Background Video */}
+        {/* Background Video with Auto-Optimization & Preload */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video
             ref={videoRef}
@@ -80,17 +81,18 @@ export default function Home() {
             loop
             muted
             playsInline
+            preload="auto"
             onTimeUpdate={handleTimeUpdate}
             className="w-full h-full object-cover opacity-75 filter brightness-95 contrast-105"
           >
-            <source src="https://res.cloudinary.com/doa6d6cyf/video/upload/a_270/v1784909337/Turning_birthdays_into_fairytales._..Manasvis_1st_birthday_birthdayfun_1stbirthday_hqf4fd.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/doa6d6cyf/video/upload/q_auto:good,vc_auto/v1784909337/Turning_birthdays_into_fairytales._..Manasvis_1st_birthday_birthdayfun_1stbirthday_hqf4fd.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           {/* Gradient Overlay for Bottom-Left Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-tr from-black/95 via-black/50 to-transparent"></div>
         </div>
 
-        {/* Hero Content - Perfectly aligned at Bottom-Left on both Mobile & Desktop */}
+        {/* Hero Content */}
         <div className="relative z-10 max-w-xl md:max-w-3xl text-left flex flex-col items-start text-white">
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-3 sm:mb-4 text-[#F9F6F0] text-[11px] sm:text-xs tracking-[0.25em] uppercase font-medium shadow-lg">
@@ -113,7 +115,7 @@ export default function Home() {
               <FaWhatsapp className="text-xl text-green-700" /> Connect on WhatsApp
             </button>
             <button
-              onClick={() => window.open('https://calendly.com/infoaugconsultancy/30min?month=2026-09', '_blank')}
+              onClick={handleCalendly}
               className="flex items-center justify-center gap-3 bg-black/40 hover:bg-black/60 border-2 border-white/70 text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-semibold transition-all backdrop-blur-md tracking-wide text-xs sm:text-base shadow-xl"
             >
               <FaCalendarAlt className="text-lg text-[#E6D5C3]" /> Schedule Consultation
@@ -122,7 +124,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECTION 2: SELECTED WORK (Clean Cards with Lightbox) ================= */}
+      {/* ================= SECTION 2: SELECTED WORK (Optimized Images) ================= */}
       <section className="py-16 sm:py-28 px-4 sm:px-8 md:px-16 max-w-7xl mx-auto bg-[#FDFBF7]">
         <div className="text-center mb-10 sm:mb-20">
           <span className="text-[#8C7A6B] uppercase tracking-[0.3em] text-[10px] sm:text-xs font-semibold block mb-2 sm:mb-3">Our Portfolio</span>
@@ -133,7 +135,7 @@ export default function Home() {
         {/* Asymmetrical Grid on Desktop, Clean 2-Column Grid on Mobile */}
         <div className="grid grid-cols-2 md:grid-cols-12 gap-3 sm:gap-6 md:gap-8 items-center">
           
-          {/* Image 1: Big */}
+          {/* Image 1 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[0])}
             className="col-span-2 md:col-span-7 h-[260px] sm:h-[350px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -141,11 +143,12 @@ export default function Home() {
             <img 
               src={portfolioImages[0]} 
               alt="Masterpiece 1" 
+              loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
           </div>
 
-          {/* Image 2: Small */}
+          {/* Image 2 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[1])}
             className="col-span-1 md:col-span-5 h-[220px] sm:h-[300px] md:h-[390px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -153,11 +156,12 @@ export default function Home() {
             <img 
               src={portfolioImages[1]} 
               alt="Masterpiece 2" 
+              loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
           </div>
 
-          {/* Image 3: Small */}
+          {/* Image 3 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[2])}
             className="col-span-1 md:col-span-5 h-[220px] sm:h-[300px] md:h-[360px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -165,11 +169,12 @@ export default function Home() {
             <img 
               src={portfolioImages[2]} 
               alt="Masterpiece 3" 
+              loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
           </div>
 
-          {/* Image 4: Big */}
+          {/* Image 4 */}
           <div 
             onClick={() => setActiveImage(portfolioImages[3])}
             className="col-span-2 md:col-span-7 h-[260px] sm:h-[350px] md:h-[450px] rounded-xl sm:rounded-2xl overflow-hidden group relative shadow-lg sm:shadow-xl border border-[#EFECE6] cursor-pointer transform transition-all duration-500 hover:-translate-y-1"
@@ -177,6 +182,7 @@ export default function Home() {
             <img 
               src={portfolioImages[3]} 
               alt="Masterpiece 4" 
+              loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
           </div>
@@ -193,7 +199,7 @@ export default function Home() {
           >
             <FaTimes className="text-lg sm:text-xl" />
           </button>
-          <img src={activeImage} alt="Expanded View" className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl border border-white/10" />
+          <img src={activeImage} alt="Expanded View" loading="eager" className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl border border-white/10" />
         </div>
       )}
 
