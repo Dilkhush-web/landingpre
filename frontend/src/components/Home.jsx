@@ -85,7 +85,7 @@ export default function Home() {
             onTimeUpdate={handleTimeUpdate}
             className="w-full h-full object-cover opacity-75 filter brightness-95 contrast-105"
           >
-            <source src="https://res.cloudinary.com/doa6d6cyf/video/upload/a_270/q_auto:good,vc_auto/v1784909337/Turning_birthdays_into_fairytales._..Manasvis_1st_birthday_birthdayfun_1stbirthday_hqf4fd.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/tkhv6b6p/video/upload/v1791194859/SANIYA_AKASH_PEREFCT.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           {/* Gradient Overlay for Bottom-Left Text Readability */}
